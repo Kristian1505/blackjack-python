@@ -2,11 +2,10 @@ import random
 
 ### Display a Welcome Message to the Player ###
 def display_welcome_message():
-    print("""Welcome to the Blackjack game!
+    print("""\nWelcome to the Blackjack game!
 Here, you will have the opportunity to get rich!
 Just make sure you win! ;)
-Let's get started!
-          """)
+Let's get started!""")
 
 ### Get a Random Card from Deck ###
 def get_random_card(deck):
@@ -54,6 +53,21 @@ def play_again():
     user_answer = input('Would you like to play again? Type "y" for yes or "n" for no:')
     return user_answer.lower() == "y"
 
+
+### Restore Initial Values ###
+def restore_values(dealer_hand, user_hand):
+    dealer_hand.clear()
+    user_hand.clear()
+    return True
+
+def player_bet(budget):
+    print(f"Your budget is: {budget}")
+    total_bet = int(input("How much you want to bet?: "))
+    while type(total_bet) != int:
+        print("Error: Only whole numbers")
+        total_bet = int(input("How much you want to bet?: "))
+    
+    return total_bet
 """
 def return_ace(hand):
     counter = 0

@@ -5,6 +5,7 @@ from functions import display_welcome_message
 from functions import hide_card
 from functions import take_another_card
 from functions import play_again
+from functions import restore_values
 
 
 deck = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
@@ -12,15 +13,16 @@ dealer_hand = []
 user_hand =  []
 dealer_wins = False
 take_card = True
-play_again = True
+keep_playing = True
 
 ### Say Welcome to the Player ###
 display_welcome_message()
 
-while play_again:
+while keep_playing:
 
     deal_cards(2, dealer_hand, deck, get_random_card) #Deal initial cards to the dealer
     summatory_dealer = calculate_hand_value(dealer_hand)
+    print("\n")
     print(f"The dealer's hand: {hide_card(dealer_hand)}") #Hide first card and print value of second card
 
     while take_card:
@@ -68,8 +70,9 @@ while play_again:
             card_counter += 1
             deal_cards(1, dealer_hand, deck, get_random_card)
             print("The dealer is taking a card")
-            print(f"The dealer got the card {user_hand[card_counter]}")
-            print(f"The dealer's hand: {user_hand}")
+            print(f"The dealer got the card {dealer_hand[card_counter]}")
+            print(f"The dealer's hand: {dealer_hand}")
+            print("\n")
             summatory_dealer = calculate_hand_value(dealer_hand)
         
         if summatory_user <= 21 and summatory_user > summatory_dealer:
@@ -87,7 +90,14 @@ while play_again:
             print("The dealer wins this round. Better luck next time!")
             print(f"Your hand: {user_hand} = {summatory_user} points")
             print(f"The dealer's hand: {dealer_hand} = {summatory_dealer} points")
+
+        else:
+            print("Congratulations! You win!")
+            print(f"Your hand: {user_hand} = {summatory_user} points")
+            print(f"The dealer's hand: {dealer_hand} = {summatory_dealer} points")
+
             
         take_card = False
     
-    play_again()
+    keep_playing = play_again()
+    take_card = restore_values(dealer_hand, user_hand)
